@@ -8,8 +8,14 @@ def input_students
   # while the name is not empty, repeat this code
   while !name.empty? do
     # add the student hash to the array
-    students << {name: name, cohort: :november}
-    puts "Now we have #{students.count} students"
+    puts "Enter height: "
+    height = gets.chomp
+    puts "Enter place of birth: "
+    birthplace = gets.chomp
+    puts "Enter interests: "
+    interests = gets.chomp
+    students << {name: name, cohort: :november, height: height, birthplace: birthplace, interests: interests}
+    puts "Now we have #{students.count} students. Enter a new name, or press return to finish."
     # get another name from the user
     name = gets.chomp
   end
@@ -23,12 +29,26 @@ def print_header
 end
 
 def print(students)
+  count = 0
+  while count < students.length
+    students.each_with_index do |student, index|
+        strOut = "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)\n\tHeight: #{student[:height]}\n\tPlace of birth: #{student[:birthplace]}\n\tInterests: #{student[:interests]}"
+        puts strOut
+        count += 1
+    end
+  end
+end
+
+
+=begin
+def print(students)
   students.each_with_index do |student, index|
     if student[:name][0] == "V" && student[:name].length < 12
       puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
     end
   end
 end
+=end
 
 def print_footer(names)
   puts "Overall, we have #{names.count} great students"
