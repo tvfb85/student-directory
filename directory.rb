@@ -33,7 +33,7 @@ def print(students)
   while count < students.length
     students.each_with_index do |student, index|
         strOut = "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)\n\tHeight: #{student[:height]}\n\tPlace of birth: #{student[:birthplace]}\n\tInterests: #{student[:interests]}"
-        puts strOut
+        puts strOut.lines.map {|line| line.strip.center(100)}.join("\n")
         count += 1
     end
   end
