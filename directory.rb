@@ -5,6 +5,11 @@ def input_students
   students = []
   # get the first name
   name = gets.chomp.to_sym
+  # checks the user has entered a student
+    if name.empty?
+      puts "Nothing entered. Try again."
+      input_students
+    else
   # while the name is not empty, repeat this code
   while !name.empty? do
     #get user input for cohort value
@@ -32,8 +37,10 @@ def input_students
     # get another name from the user
     name = gets.chomp
   end
+
   # return the array of students
- students
+  students
+  end
 end
 
 def print_header
@@ -58,12 +65,14 @@ def print(students)
       if @current === cohort[:cohort]
         # outputs student data
         strOut = "#{index + 1}. #{cohort[:name]} (#{cohort[:cohort]} cohort)\n\Height: #{cohort[:height]}\n\tBorn: #{cohort[:birthplace]}\n\tInterests: #{cohort[:interests]}\n"
-        # centers the output nicely
+        # centers output
         puts strOut.lines.map {|line| line.strip.center(100)}.join("\n")
+
       end
     end
   end
 end
+
 
 =begin
 # group by cohort
@@ -116,6 +125,7 @@ puts "Overall, we have #{names.count} great student"
     puts "Overall, we have #{names.count} great students"
   end
 end
+
 
 students = input_students
 print_header
