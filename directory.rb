@@ -75,40 +75,6 @@ end
 
 
 =begin
-# group by cohort
-def print(students)
-  listCohorts = students.group_by{ |x| x[:cohort] }
-  puts listCohorts
-    count = 0
-    while count < listCohorts.length
-      listCohorts.each_with_index do |cohort, index|
-          puts "#{index + 1}. #{cohort[0]}"
-          listCohorts[0].each do |cohort|
-            puts cohort[0][:name]
-          end
-          count += 1
-      end
-
-    end
-end
-
-
-
-=begin
-def print(students)
-  count = 0
-  while count < students.length
-    students.each_with_index do |student, index|
-        strOut = "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)\n\tHeight: #{student[:height]}\n\tPlace of birth: #{student[:birthplace]}\n\tInterests: #{student[:interests]}"
-        puts strOut.lines.map {|line| line.strip.center(100)}.join("\n")
-        count += 1
-    end
-  end
-end
-=end
-
-
-=begin
 def print(students)
   students.each_with_index do |student, index|
     if student[:name][0] == "V" && student[:name].length < 12
@@ -126,110 +92,36 @@ puts "Overall, we have #{names.count} great student"
   end
 end
 
-
+=begin
 students = input_students
 print_header
 print(students)
 print_footer(students)
-
-
-=begin
------------------------------------------------------
-students = [
-  {name: "Dr. Hannibal Lecter", cohort: :november},
-  {name: "Darth Vader", cohort: :november},
-  {name: "Nurse Ratched", cohort: :november},
-  {name: "Michael Corleone", cohort: :november},
-  {name: "Alex DeLarge", cohort: :november},
-  {name: "The Wicked Witch of the West", cohort: :november},
-  {name: "Terminator", cohort: :november},
-  {name: "Freddy Krueger", cohort: :november},
-  {name: "The Joker", cohort: :november},
-  {name: "Joffrey Baratheon", cohort: :november},
-  {name: "Norman Bates", cohort: :november}
-]
-
-def print_header
-  puts "The students of Villains Academy"
-  puts "------------"
-end
-
-def print(students)
-  students.each do |student|
-    puts "#{student[:name]} (#{student[:cohort]} cohort)"
-  end
-end
-
-def print_footer(names)
-  puts "Overall, we have #{names.count} great students"
-end
-
-print_header
-print(students)
-print_footer(students)
-
-
-------------------------------------------------------
-# student_count = 11
-
-students = [
-  "Dr. Hannibal Lecter",
-  "Darth Vader",
-  "Nurse Ratched",
-  "Michael Corleone",
-  "Alex DeLarge",
-  "The Wicked Witch of the West",
-  "Terminator",
-  "Freddy Krueger",
-  "The Joker",
-  "Joffrey Baratheon",
-  "Norman Bates"
-]
-
-def print_header
-  puts "The students of Villains Academy"
-  puts "------------"
-end
-
-def print(names)
-  names.each do |name|
-    puts name
-  end
-end
-
-def print_footer(names)
-  puts "Overall, we have #{names.count} great students"
-end
-
-print_header
-print(students)
-print_footer(students)
-
-
-------------------------------------------------------
-student_count = 11
-
-#first we print the list of students
-puts "The students of Villains Academy"
-puts "------------"
-puts "Dr. Hannibal Lecter"
-puts "Darth Vader"
-puts "Nurse Ratched"
-puts "Michael Corleone"
-puts "Alex DeLarge"
-puts "The Wicked Witch of the West"
-puts "Terminator"
-puts "Freddy Krueger"
-puts "The Joker"
-puts "Joffrey Baratheon"
-puts "Norman Bates"
-
-#finally, we print the total number of students using string interpolation
-print "Overall, we have #{student_count} great students"
-
-#it's important the print() doesn't add new line chars
-#print student_count
-#puts " great students"
-
-# print "Overall, we have \n11 \ngreat students"
 =end
+
+def interactive_menu
+students = []
+  loop do
+    #1. print the menu and ask the user what to do
+    puts "1. Input the students"
+    puts "2. Show the students"
+    puts "9. Exit"
+    #2. read the input and save into a variable
+    selection = gets.chomp
+    #3. do what user asked
+    case selection
+    when "1"
+      students = input_students
+    when "2"
+      print_header
+      print(students)
+      print_footer(students)
+    when "9"
+      exit
+    else
+      puts "I don't know what you mean, try again"
+    end
+  end
+end
+
+interactive_menu
