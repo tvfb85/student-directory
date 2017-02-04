@@ -1,5 +1,6 @@
 @students = []
 
+
 def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
@@ -21,7 +22,7 @@ def input_students
         cohort = :February
       end
     # convert cohort user input to symbol
-    cohort = cohort.to_sym
+    # cohort = cohort.to_sym
     # asking for more user input
     puts "Enter height: "
     height = STDIN.gets.chomp
@@ -30,7 +31,7 @@ def input_students
     puts "Enter interests: "
     interests = STDIN.gets.chomp
     # add the student hash to the array
-    @students << { name: name, cohort: cohort, height: height, birthplace: birthplace, interests: interests}
+    add_students_hash({name: name, cohort: cohort.to_sym, height: height, birthplace: birthplace, interests: interests})
     if @students.length === 1
       puts "Now we have #{@students.count} student. Enter a new name, or press return to finish."
     else
@@ -147,7 +148,7 @@ def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
   name, cohort = line.chomp.split(',')
-    @students << {name: name, cohort: cohort.to_sym}
+  add_students_hash({name: name, cohort: cohort.to_sym})
   end
   file.close
 end
@@ -162,6 +163,10 @@ def try_load_students
     puts "Sorry, #{filename} doesn't exist."
     exit
   end
+end
+
+def add_students_hash(student_info)
+  @students << (student_info)
 end
 
 def interactive_menu
