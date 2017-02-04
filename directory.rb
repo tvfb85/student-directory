@@ -6,7 +6,7 @@ def input_students
   # create the empty array
   # students = []
   # get the first name
-  name = gets.chomp.to_sym
+  name = STDIN.gets.chomp.to_sym
   # checks the user has entered a student
     if name.empty?
       puts "Nothing entered. Try again."
@@ -16,7 +16,7 @@ def input_students
   while !name.empty? do
     #get user input for cohort value
     puts "Please enter the cohort (month): "
-    cohort = gets.chomp
+    cohort = STDIN.gets.chomp
       if cohort.empty?
         cohort = :February
       end
@@ -24,11 +24,11 @@ def input_students
     cohort = cohort.to_sym
     # asking for more user input
     puts "Enter height: "
-    height = gets.chomp
+    height = STDIN.gets.chomp
     puts "Enter place of birth: "
-    birthplace = gets.chomp
+    birthplace = STDIN.gets.chomp
     puts "Enter interests: "
-    interests = gets.chomp
+    interests = STDIN.gets.chomp
     # add the student hash to the array
     @students << { name: name, cohort: cohort, height: height, birthplace: birthplace, interests: interests}
     if @students.length === 1
@@ -37,7 +37,7 @@ def input_students
       puts "Now we have #{@students.count} students. Enter a new name, or press return to finish."
     end
     # get another name from the user
-    name = gets.chomp
+    name = STDIN.gets.chomp
   end
 
   # return the array of students
@@ -143,8 +143,8 @@ def save_students
   file.close
 end
 
-def load_students
-  file = File.open("students.csv", "r")
+def load_students(filename = "students.csv")
+  file = File.open(filename, "r")
   file.readlines.each do |line|
   name, cohort = line.chomp.split(',')
     @students << {name: name, cohort: cohort.to_sym}
@@ -152,6 +152,17 @@ def load_students
   file.close
 end
 
+def try_load_students
+  filename = ARGV.first
+  return if filename.nil?
+  if File.exists?(filename)
+    load_students(filename)
+    puts "Loaded #{students.count} from #{filename}"
+  else
+    puts "Sorry, #{filename} doesn't exist."
+    exit
+  end
+end
 
 def interactive_menu
 # students = []
@@ -159,9 +170,10 @@ def interactive_menu
     #1. print the menu and ask the user what to do
     print_menu
     #2. read the input and save into a variable
-    process(gets.chomp)
+    process(STDIN.gets.chomp)
     #3. do what user asked
   end
 end
 
+try_load_students
 interactive_menu
