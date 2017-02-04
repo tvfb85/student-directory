@@ -104,8 +104,8 @@ print_footer(students)
 def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
-  puts "3. Save the list to students.csv"
-  puts "4. Load the list from students.csv"
+  puts "3. Save list to file"
+  puts "4. Load list from file"
   puts "9. Exit"
 end
 
@@ -123,11 +123,15 @@ def process(selection)
   when "2"
     show_students
   when "3"
-    puts "Students were successfully saved to file."
+    puts "Enter filename: "
+    @user_filename = gets.chomp
+        puts "Students were successfully saved to file."
     save_students
   when "4"
-    puts "Students were successfully loaded from file."
-    load_students
+    puts "Enter filename: "
+    @user_filename = gets.chomp
+        puts "Students were successfully loaded from file."
+    load_students(@user_filename)
   when "9"
     exit
   else
@@ -137,7 +141,7 @@ end
 
 def save_students
   # open the file for writing
-  file = File.open("students.csv", "w")
+  file = File.open(@user_filename, "w")
   # iterate over the array of students
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
