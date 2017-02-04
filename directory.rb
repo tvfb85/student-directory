@@ -116,14 +116,17 @@ def show_students
 end
 
 def process(selection)
+  puts "Selection successful."
   case selection
   when "1"
     input_students
   when "2"
     show_students
   when "3"
+    puts "Students were successfully saved to file."
     save_students
   when "4"
+    puts "Students were successfully loaded from file."
     load_students
   when "9"
     exit
