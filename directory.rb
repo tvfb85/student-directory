@@ -55,23 +55,19 @@ end
 def print_students_list
   # sort the students hash by cohort
   grouped = @students.sort_by{|student| student[:cohort]}
+  index = 1
   # iterate over each cohort
   grouped.each do |cohort|
-  # assign current iteration to a variable which is used to control flow below
-  @current = cohort[:cohort]
-  # string output for the current cohort
-  puts "The students for the #{cohort[:cohort]} cohort are:".center(100)
-    # iterate over current cohort with index
-    grouped.each_with_index do |cohort, index|
-      # evaluate if each student matches the current cohort
-      if @current === cohort[:cohort]
-        # outputs student data
-        strOut = "#{index + 1}. #{cohort[:name]} (#{cohort[:cohort]} cohort)\n\Height: #{cohort[:height]}\n\tBorn: #{cohort[:birthplace]}\n\tInterests: #{cohort[:interests]}\n"
-        # centers output
-        puts strOut.lines.map {|line| line.strip.center(100)}.join("\n")
-
-      end
+    if @current.nil? || @current != cohort[:cohort]
+      puts "The students for the #{cohort[:cohort]} cohort are:".center(100)
+      index = 1
     end
+    @current = cohort[:cohort]
+    strOut = "#{index}. #{cohort[:name]} (#{cohort[:cohort]} cohort)\n\Height: #{cohort[:height]}\n\tBorn: #{cohort[:birthplace]}\n\tInterests: #{cohort[:interests]}\n"
+    puts strOut.lines.map {|line| line.strip.center(100)}.join("\n")
+    index += 1
+
+
   end
 end
 
