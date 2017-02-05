@@ -116,7 +116,7 @@ def show_students
 end
 
 def process(selection)
-  puts "Selection successful."
+  puts "Selection successful..."
   case selection
   when "1"
     input_students
@@ -141,23 +141,25 @@ end
 
 def save_students
   # open the file for writing
-  file = File.open(@user_filename, "w")
+  File.open(@user_filename, "w") do |file|
   # iterate over the array of students
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
     csv_line = student_data.join(",")
     file.puts csv_line
   end
-  file.close
+  #file.close
+end
 end
 
 def load_students(filename = "students.csv")
-  file = File.open(filename, "r")
+  File.open(filename, "r") do |file|
   file.readlines.each do |line|
   name, cohort = line.chomp.split(',')
   add_students_hash({name: name, cohort: cohort.to_sym})
   end
-  file.close
+end
+  #file.close
 end
 
 def try_load_students
